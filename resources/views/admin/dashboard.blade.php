@@ -144,6 +144,10 @@
                     <span class="pending-badge ms-auto">{{ $pendingCompanies }}</span>
                 @endif
             </a>
+            <a class="nav-link {{ request()->routeIs('admin.vacancies') ? 'active' : '' }}"
+               href="{{ route('admin.vacancies') }}">
+                <i class="bi bi-briefcase"></i> Vacantes
+            </a>
             <a class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}"
                href="{{ route('admin.users') }}">
                 <i class="bi bi-people"></i> Usuarios

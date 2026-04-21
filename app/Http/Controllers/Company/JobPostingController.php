@@ -64,6 +64,19 @@ class JobPostingController extends Controller
             ->with('success', 'Vacante publicada exitosamente.');
     }
 
+    public function show(JobPosting $jobPosting)
+    {
+        $company = Auth::user()->company;
+        if ($jobPosting->company_id !== $company->id) abort(403);
+
+        $jobPosting->loadCount('applications');
+        $jobPosting->load(['applications' => function ($q) {
+            $q->with('user.studentProfile')->latest()->take(20);
+        }]);
+
+        return view('company.jobs.show', compact('jobPosting', 'company'));
+    }
+
     public function edit(JobPosting $jobPosting)
     {
         $company = Auth::user()->company;

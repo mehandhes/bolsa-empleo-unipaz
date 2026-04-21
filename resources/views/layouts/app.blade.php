@@ -605,6 +605,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('company.jobs.index') ? 'active' : '' }}"
+                            href="{{ route('company.jobs.index') }}">
+                            <i class="bi bi-briefcase me-1"></i>Mis vacantes
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link btn-nav-student" href="{{ route('company.jobs.create') }}">
                             <i class="bi bi-plus-circle me-1"></i>Publicar vacante
                         </a>

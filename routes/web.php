@@ -47,6 +47,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::post('/empresas/{company}/rechazar', [AdminDashboard::class, 'rejectCompany'])->name('companies.reject');
     Route::get('/usuarios',                 [AdminDashboard::class, 'users'])->name('users');
     Route::post('/usuarios/{user}/toggle',  [AdminDashboard::class, 'toggleUser'])->name('users.toggle');
+    Route::get('/vacantes',                  [AdminDashboard::class, 'vacancies'])->name('vacancies');
+    Route::get('/vacantes/{jobPosting}',     [AdminDashboard::class, 'showVacancy'])->name('vacancies.show');
+    Route::post('/vacantes/{jobPosting}/toggle', [AdminDashboard::class, 'toggleVacancy'])->name('vacancies.toggle');
     Route::get('/reportes',                 [AdminDashboard::class, 'reports'])->name('reports');
 });
 
@@ -61,11 +64,11 @@ Route::prefix('empresa')->name('company.')->middleware(['auth', 'role:company'])
 
     // CRUD de vacantes
     Route::resource('vacantes', JobPostingController::class, [
-        'except' => ['show'],
         'names'  => [
             'index'   => 'jobs.index',
             'create'  => 'jobs.create',
             'store'   => 'jobs.store',
+            'show'    => 'jobs.show',
             'edit'    => 'jobs.edit',
             'update'  => 'jobs.update',
             'destroy' => 'jobs.destroy',
@@ -82,6 +85,4 @@ Route::prefix('estudiante')->name('student.')->middleware(['auth', 'role:student
 
     // Vacantes
     Route::get('/vacantes',              [JobController::class, 'index'])->name('jobs');
-    Route::get('/vacantes/{jobPosting}', [JobController::class, 'show'])->name('jobs.show');
-    Route::post('/vacantes/{jobPosting}/postular', [JobController::class, 'apply'])->name('jobs.apply');
-});
+    Route::get('/vacantes/{jobPosting}', [JobController::class, 'show'])->name('jobs

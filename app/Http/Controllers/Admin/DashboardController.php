@@ -103,6 +103,50 @@ class DashboardController extends Controller
         return back()->with('success', "Usuario {$status} correctamente.");
     }
 
+    // ─── Gestión de vacantes ─────────────────────────────────────
+    public function vacancies(Request $request)
+    {
+        $query = JobPosting::with('company');
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhereHas('company', fn($c) => $c->where('company_name', 'like', "%{$search}%"));
+            });
+        }
+        if ($request->filled('area')) {
+            $query->where('area', $request->area);
+        }
+
+        $vacancies = $query->withCount('applications')->latest()->paginate(15)->withQueryString();
+
+        $areas = JobPosting::select('area')->distinct()->orderBy('area')->pluck('area');
+
+        return view('admin.vacancies.index', compact('vacancies', 'areas'));
+    }
+
+    public function showVacancy(JobPosting $jobPosting)
+    {
+        $jobPosting->load(['company', 'applications' => function ($q) {
+            $q->with('user.studentProfile')->latest();
+        }]);
+        $jobPosting->loadCount('applications');
+
+        return view('admin.vacancies.show', compact('jobPosting'));
+    }
+
+    public function toggleVacancy(JobPosting $jobPosting)
+    {
+        $newStatus = $jobPosting->status === 'active' ? 'paused' : 'active';
+        $jobPosting->update(['status' => $newStatus]);
+        $label = $newStatus === 'active' ? 'activada' : 'pausada';
+        return back()->with('success', "Vacante \"{$jobPosting->title}\" {$label}.");
+    }
+
     // ─── Reportes ─────────────────────────────────────────────────
     public function reports()
     {
@@ -116,9 +160,4 @@ class DashboardController extends Controller
         ];
 
         $companiesByStatus = Company::selectRaw('status, COUNT(*) as total')->groupBy('status')->pluck('total', 'status');
-        $applicationsByStatus = Application::selectRaw('status, COUNT(*) as total')->groupBy('status')->pluck('total', 'status');
-        $jobsByArea = JobPosting::selectRaw('area, COUNT(*) as total')->groupBy('area')->orderByDesc('total')->get();
-
-        return view('admin.reports', compact('stats', 'companiesByStatus', 'applicationsByStatus', 'jobsByArea'));
-    }
-}
+        $applicationsByStatus = Application::s

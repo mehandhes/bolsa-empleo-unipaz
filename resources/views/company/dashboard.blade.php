@@ -229,6 +229,13 @@
         </div>
     </div>
 
+    {{-- Acceso rápido a vacantes --}}
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{{ route('company.jobs.index') }}" class="btn-sm-unipaz" style="text-decoration:none;">
+            <i class="bi bi-briefcase me-1"></i>Ver todas mis vacantes
+        </a>
+    </div>
+
     {{-- Tabla postulaciones --}}
     <div class="panel-card">
         <div class="panel-header">
@@ -356,15 +363,4 @@
                     @empty
                         <tr>
                             <td colspan="6" class="text-center py-5" style="color:#9ca3af;">
-                                <i class="bi bi-inbox d-block fs-2 mb-2 opacity-25"></i>
-                                <p class="mb-0 small">Aún no hay postulaciones en tus vacantes.</p>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-</div>
-@endsection
+                                <i class="bi bi-inbox d-block fs-2 mb-2 opacity-25"></i
