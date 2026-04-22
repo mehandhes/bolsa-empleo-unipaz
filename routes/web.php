@@ -10,31 +10,36 @@ use App\Http\Controllers\Student\JobController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-// --- Pagina principal publica ---
+// ─── Página principal pública ──────────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// --- Autenticacion ---
+// ─── Autenticación ─────────────────────────────────────────────────────────────
 Route::middleware('guest')->group(function () {
+    // Login general (empresa + admin)
     Route::get('/login',    [CompanyAuthController::class, 'showLogin'])->name('login');
     Route::post('/login',   [CompanyAuthController::class, 'login']);
 
+    // Registro de empresa
     Route::get('/register/empresa',   [CompanyAuthController::class, 'showRegister'])->name('company.register');
     Route::post('/register/empresa',  [CompanyAuthController::class, 'register'])->name('company.register.store');
 
+    // Google OAuth (estudiantes)
     Route::get('/auth/google',          [GoogleController::class, 'redirect'])->name('auth.google');
     Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('auth.google.callback');
 });
 
+// Logout
 Route::post('/logout', [CompanyAuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
+// Marcar notificación como leída
 Route::get('/notifications/{id}/read', function ($id) {
     auth()->user()->notifications()->where('id', $id)->update(['read_at' => now()]);
     return response()->json(['ok' => true]);
 })->middleware('auth');
 
-// --- Panel de ADMINISTRADOR ---
+// ─── Panel de ADMINISTRADOR ────────────────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard',                [AdminDashboard::class, 'index'])->name('dashboard');
     Route::get('/empresas',                 [AdminDashboard::class, 'companies'])->name('companies');
@@ -48,7 +53,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/reportes',                 [AdminDashboard::class, 'reports'])->name('reports');
 });
 
-// --- Panel de EMPRESA ---
+// ─── Panel de EMPRESA ──────────────────────────────────────────────────────────
 Route::prefix('empresa')->name('company.')->middleware(['auth', 'role:company'])->group(function () {
     Route::get('/dashboard',   [CompanyDashboard::class, 'index'])->name('dashboard');
     Route::get('/perfil',      [CompanyDashboard::class, 'profile'])->name('profile');
@@ -71,7 +76,7 @@ Route::prefix('empresa')->name('company.')->middleware(['auth', 'role:company'])
     ]);
 });
 
-// --- Panel de ESTUDIANTE ---
+// ─── Panel de ESTUDIANTE ───────────────────────────────────────────────────────
 Route::prefix('estudiante')->name('student.')->middleware(['auth', 'role:student'])->group(function () {
     Route::get('/dashboard',     [StudentDashboard::class, 'index'])->name('dashboard');
     Route::get('/perfil',        [StudentDashboard::class, 'profile'])->name('profile');
@@ -80,6 +85,4 @@ Route::prefix('estudiante')->name('student.')->middleware(['auth', 'role:student
 
     // Vacantes
     Route::get('/vacantes',              [JobController::class, 'index'])->name('jobs');
-    Route::get('/vacantes/{jobPosting}', [JobController::class, 'show'])->name('jobs.show');
-    Route::post('/vacantes/{jobPosting}/postular', [JobController::class, 'apply'])->name('jobs.apply');
-});
+    Route::get('/vacantes/{jobPosting}', [JobController::class, 'show'])->name('jobs

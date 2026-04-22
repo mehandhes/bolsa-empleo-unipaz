@@ -310,7 +310,7 @@
             <div class="col-lg-7">
                 <img src="{{ asset('images/LogoWhite_.png') }}"
                      alt="UNIPAZ"
-                     style="height: 75px; width: auto; margin-bottom: 1.5rem; display: block;">
+                     style="height: 150px; width: auto; margin-bottom: 1.5rem; display: block;">
                 <div class="hero-badge mb-3">
                     <span class="dot"></span>
                     Plataforma oficial · UNIPAZ Barrancabermeja
