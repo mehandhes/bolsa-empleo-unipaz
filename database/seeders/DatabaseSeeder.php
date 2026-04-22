@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name'              => 'Administrador UNIPAZ',
             'email'             => 'admin@unipaz.edu.co',
-            'password'          => Hash::make('Admin2024*'),
+            'password'          => Hash::make('Admin2026*'),
             'role'              => 'admin',
             'email_verified_at' => now(),
             'active'            => true,

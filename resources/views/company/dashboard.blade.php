@@ -363,4 +363,15 @@
                     @empty
                         <tr>
                             <td colspan="6" class="text-center py-5" style="color:#9ca3af;">
-                                <i class="bi bi-inbox d-block fs-2 mb-2 opacity-25"></i
+                                <i class="bi bi-inbox d-block fs-2 mb-2 opacity-25"></i>
+                                <p class="mb-0 small">Aún no hay postulaciones en tus vacantes.</p>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+@endsection

@@ -157,4 +157,14 @@
                 <p class="small text-muted">Tu empresa debe ser aprobada para publicar vacantes.</p>
             @endif
         </div>
-    @endf
+    @endforelse
+
+    {{-- Paginación --}}
+    @if($jobPostings->hasPages())
+        <div class="d-flex justify-content-center mt-4">
+            {{ $jobPostings->links() }}
+        </div>
+    @endif
+
+</div>
+@endsection

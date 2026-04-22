@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etapas de Desarrollo — Bolsa de Empleo UNIPAZ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface2: #334155;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --accent: #38bdf8;
+    --phase1: #f472b6;
+    --phase2: #a78bfa;
+    --phase3: #38bdf8;
+    --phase4: #34d399;
+    --phase5: #fbbf24;
+    --phase6: #fb923c;
+    --phase7: #f87171;
+    --phase8: #e879f9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    padding: 40px 20px 10px;
+  }
+  .header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--phase2), var(--phase1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 300;
+  }
+  .header .badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(56, 189, 248, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Main layout ── */
+  .main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 50px;
+    padding: 20px 40px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  /* ── Wheel container ── */
+  .wheel-container {
+    position: relative;
+    width: 520px;
+    height: 520px;
+    flex-shrink: 0;
+  }
+
+  /* ── SVG Wheel ── */
+  .wheel-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 40px rgba(56, 189, 248, 0.08));
+  }
+
+  .segment {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.85;
+  }
+  .segment:hover, .segment.active {
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+  .segment.active {
+    filter: brightness(1.3) drop-shadow(0 0 12px currentColor);
+  }
+
+  .segment-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    fill: white;
+    pointer-events: none;
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+  .segment-number {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    fill: white;
+    pointer-events: none;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    opacity: 0.3;
+  }
+
+  /* Center circle */
+  .center-circle {
+    fill: var(--bg);
+    stroke: var(--surface2);
+    stroke-width: 2;
+  }
+  .center-icon {
+    font-size: 28px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    fill: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+  }
+  .center-sub {
+    font-size: 9px;
+    font-weight: 500;
+    fill: var(--text-muted);
+    text-anchor: middle;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Connection arrows */
+  .arrow-ring {
+    fill: none;
+    stroke: var(--surface2);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 4;
+    opacity: 0.5;
+  }
+
+  /* ── Detail panel ── */
+  .detail-panel {
+    flex: 1;
+    min-width: 340px;
+    max-width: 480px;
+  }
+
+  .phase-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--surface2);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .phase-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-color, var(--accent));
+    border-radius: 16px 16px 0 0;
+  }
+
+  .phase-card .phase-number {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--card-color, var(--accent));
+    margin-bottom: 6px;
+  }
+  .phase-card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .phase-card .desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .tech-tag {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.06);
+    color: var(--text-muted);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .deliverables {
+    border-top: 1px solid var(--surface2);
+    padding-top: 16px;
+  }
+  .deliverables h4 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .deliverable-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .deliverable-item .check {
+    color: var(--card-color, var(--accent));
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Navigation */
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .nav-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--surface2);
+    background: var(--surface);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover {
+    background: var(--surface2);
+    border-color: var(--accent);
+  }
+
+  /* ── Phase indicators (bottom) ── */
+  .phase-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 0 30px;
+  }
+  .phase-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0.4;
+    border: 2px solid transparent;
+  }
+  .phase-dot.active {
+    opacity: 1;
+    transform: scale(1.3);
+    border-color: white;
+  }
+
+  /* ── Pulse animation on center ── */
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; r: 62; }
+    50% { opacity: 0.15; r: 72; }
+  }
+  .pulse-ring {
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  /* ── Auto-rotate indicator ── */
+  .auto-indicator {
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  .auto-btn {
+    background: none;
+    border: 1px solid var(--surface2);
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .auto-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .auto-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(56,189,248,0.1); }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .main { flex-direction: column; align-items: center; padding: 20px; }
+    .wheel-container { width: 400px; height: 400px; }
+    .detail-panel { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Ciclo de Desarrollo</h1>
+  <p>Bolsa de Empleo UNIPAZ — Universidad de la Paz, Barrancabermeja</p>
+  <span class="badge">LARAVEL 12 &bull; PHP 8.2 &bull; TAILWIND CSS 4 &bull; RAILWAY</span>
+</div>
+
+<div class="main">
+  <div class="wheel-container">
+    <svg class="wheel-svg" viewBox="0 0 520 520" id="wheel"></svg>
+  </div>
+  <div class="detail-panel">
+    <div class="phase-card" id="phaseCard"></div>
+    <div class="nav-buttons">
+      <button class="nav-btn" onclick="prev()">&#9664;&ensp;Anterior</button>
+      <button class="nav-btn" onclick="next()">Siguiente&ensp;&#9654;</button>
+    </div>
+  </div>
+</div>
+
+<div class="phase-dots" id="dots"></div>
+<div class="auto-indicator">
+  <button class="auto-btn" id="autoBtn" onclick="toggleAuto()">&#9654; Auto-rotar</button>
+</div>
+
+<script>
+const phases = [
+  {
+    name: "An\u00e1lisis y\nRequisitos",
+    short: "An\u00e1lisis y Requisitos",
+    color: "#f472b6",
+    desc: "Levantamiento de requisitos funcionales y no funcionales del sistema. Se identificaron los tres roles principales (Admin, Empresa, Estudiante), los flujos de negocio como publicaci\u00f3n de vacantes, postulaci\u00f3n y aprobaci\u00f3n de empresas, y las integraciones necesarias como Google OAuth para estudiantes UNIPAZ.",
+    techs: ["Casos de uso", "Historias de usuario", "Diagramas de flujo", "Stakeholders"],
+    deliverables: [
+      "Definici\u00f3n de 3 roles: Admin, Empresa, Estudiante",
+      "Flujo de aprobaci\u00f3n de empresas por UNIPAZ",
+      "Requisito de autenticaci\u00f3n Google @unipaz.edu.co",
+      "Modelo de postulaci\u00f3n con seguimiento de estados"
+    ]
+  },
+  {
+    name: "Dise\u00f1o de\nArquitectura",
+    short: "Dise\u00f1o de Arquitectura",
+    color: "#a78bfa",
+    desc: "Definici\u00f3n de la arquitectura MVC de Laravel 12, dise\u00f1o del modelo de datos relacional con 7 tablas principales, estructura de rutas agrupadas por rol con middleware de autorizaci\u00f3n, y decisi\u00f3n de usar SQLite para simplificar el despliegue en Railway.",
+    techs: ["Laravel 12 MVC", "Eloquent ORM", "SQLite", "Middleware", "Socialite"],
+    deliverables: [
+      "Esquema de base de datos: users, companies, job_postings, applications, student_profiles, notifications",
+      "Arquitectura de rutas con prefijos /admin, /empresa, /estudiante",
+      "Middleware: RoleMiddleware, CompanyApprovedMiddleware",
+      "Integraci\u00f3n Google OAuth v\u00eda Laravel Socialite 5.15"
+    ]
+  },
+  {
+    name: "Backend\nCore",
+    short: "Desarrollo Backend Core",
+    color: "#38bdf8",
+    desc: "Implementaci\u00f3n del n\u00facleo de la aplicaci\u00f3n: modelos Eloquent con relaciones, controladores para cada rol, sistema de autenticaci\u00f3n dual (tradicional + OAuth), migraciones de base de datos, seeders con datos de prueba, y sistema de notificaciones por correo y base de datos.",
+    techs: ["PHP 8.2", "Eloquent ORM", "Blade", "Artisan", "Hash", "Notifications"],
+    deliverables: [
+      "5 modelos: User, Company, JobPosting, Application, StudentProfile",
+      "7 controladores con validaci\u00f3n de entrada",
+      "Sistema de login dual: Google OAuth + email/password",
+      "3 notificaciones: postulaci\u00f3n, cambio de estado, aprobaci\u00f3n empresa"
+    ]
+  },
+  {
+    name: "Frontend\nUI/UX",
+    short: "Desarrollo Frontend UI/UX",
+    color: "#34d399",
+    desc: "Dise\u00f1o e implementaci\u00f3n de las interfaces de usuario con Blade templates y Tailwind CSS 4.0, compilados con Vite 7. Se crearon dashboards diferenciados por rol, formularios con validaci\u00f3n en cliente, sistema de notificaciones en tiempo real en el navbar, y dise\u00f1o responsivo para m\u00f3viles.",
+    techs: ["Tailwind CSS 4", "Vite 7", "Blade Templates", "Axios", "Responsive Design"],
+    deliverables: [
+      "Dashboard diferenciado para cada rol (admin, empresa, estudiante)",
+      "Formularios de registro, login, publicaci\u00f3n de vacantes",
+      "Sistema de filtros de b\u00fasqueda de vacantes",
+      "Interfaz de gesti\u00f3n de postulaciones con estados visuales"
+    ]
+  },
+  {
+    name: "Seguridad y\nHardening",
+    short: "Seguridad y Hardening",
+    color: "#fbbf24",
+    desc: "Implementaci\u00f3n de las capas de seguridad: protecci\u00f3n CSRF en formularios, validaci\u00f3n de dominio institucional en OAuth, control de acceso basado en roles, protecci\u00f3n de asignaci\u00f3n masiva en modelos, hashing de contrase\u00f1as con bcrypt, y regeneraci\u00f3n de sesi\u00f3n post-login.",
+    techs: ["CSRF Tokens", "Bcrypt", "RBAC", "Session Regeneration", "Input Validation"],
+    deliverables: [
+      "Tokens @csrf en todos los formularios",
+      "Validaci\u00f3n de dominio @unipaz.edu.co en OAuth",
+      "Middleware de roles y verificaci\u00f3n de empresa aprobada",
+      "Protecci\u00f3n $fillable en todos los modelos Eloquent"
+    ]
+  },
+  {
+    name: "Testing y\nQA",
+    short: "Testing y QA",
+    color: "#fb923c",
+    desc: "Fase de pruebas y aseguramiento de calidad: testing manual de flujos cr\u00edticos, verificaci\u00f3n de permisos entre roles, pruebas de formularios con datos inv\u00e1lidos, validaci\u00f3n del flujo OAuth completo, y seeding autom\u00e1tico para entornos de prueba con datos representativos.",
+    techs: ["PHPUnit", "Seeders", "Manual QA", "Faker", "Pruebas de integraci\u00f3n"],
+    deliverables: [
+      "DatabaseSeeder con datos representativos (admin, empresas, vacantes, estudiante)",
+      "Verificaci\u00f3n de aislamiento de roles (admin no accede a /empresa, etc.)",
+      "Pruebas de flujo: registro empresa \u2192 aprobaci\u00f3n \u2192 publicaci\u00f3n",
+      "Validaci\u00f3n de OAuth callback con correos no institucionales"
+    ]
+  },
+  {
+    name: "Deploy en\nRailway",
+    short: "Deploy en Railway",
+    color: "#f87171",
+    desc: "Configuraci\u00f3n y despliegue en la plataforma Railway: creaci\u00f3n del script start.sh que automatiza migraciones, cach\u00e9 y seeding condicional; configuraci\u00f3n de variables de entorno; compilaci\u00f3n de assets con Vite; conexi\u00f3n con GitHub para deploys autom\u00e1ticos por push.",
+    techs: ["Railway", "Nixpacks", "start.sh", "GitHub CI/CD", "SQLite", "Gmail SMTP"],
+    deliverables: [
+      "Script start.sh: migraciones + cach\u00e9 + seed condicional + serve",
+      "Variables de entorno: APP_KEY, Google OAuth, Gmail SMTP",
+      "Compilaci\u00f3n de assets con npm run build",
+      "Dominio p\u00fablico *.up.railway.app configurado"
+    ]
+  },
+  {
+    name: "Monitoreo y\nMejora",
+    short: "Monitoreo y Mejora Continua",
+    color: "#e879f9",
+    desc: "Fase continua post-despliegue: auditor\u00eda de seguridad con identificaci\u00f3n de 11 vulnerabilidades, plan de remediaci\u00f3n en 3 fases, monitoreo de logs en producci\u00f3n, an\u00e1lisis de rendimiento, y roadmap de mejoras como rate limiting, cabeceras de seguridad y audit logging.",
+    techs: ["Auditor\u00eda de seguridad", "Logs", "Rate Limiting", "CSP Headers", "HSTS"],
+    deliverables: [
+      "Auditor\u00eda de seguridad: 3 cr\u00edticas, 2 altas, 4 medias identificadas",
+      "Plan de remediaci\u00f3n en 3 fases (~12 horas estimadas)",
+      "Implementaci\u00f3n de cabeceras HTTP de seguridad",
+      "Roadmap: PostgreSQL, Redis, rate limiting, audit logging"
+    ]
+  }
+];
+
+let current = 0;
+let autoInterval = null;
+
+// ── Build SVG wheel ──
+function buildWheel() {
+  const svg = document.getElementById('wheel');
+  const cx = 260, cy = 260, R = 210, r = 130;
+  const n = phases.length;
+  const gap = 0.025; // gap between segments in radians
+
+  let html = '';
+
+  // Dashed rotation arrow ring
+  html += `<circle class="arrow-ring" cx="${cx}" cy="${cy}" r="${(R + r) / 2 + 15}" />`;
+
+  // Segments
+  for (let i = 0; i < n; i++) {
+    const startAngle = (2 * Math.PI * i / n) - Math.PI / 2 + gap;
+    const endAngle = (2 * Math.PI * (i + 1) / n) - Math.PI / 2 - gap;
+    const midAngle = (startAngle + endAngle) / 2;
+
+    const x1o = cx + R * Math.cos(startAngle);
+    const y1o = cy + R * Math.sin(startAngle);
+    const x2o = cx + R * Math.cos(endAngle);
+    const y2o = cy + R * Math.sin(endAngle);
+    const x1i = cx + r * Math.cos(endAngle);
+    const y1i = cy + r * Math.sin(endAngle);
+    const x2i = cx + r * Math.cos(startAngle);
+    const y2i = cy + r * Math.sin(startAngle);
+
+    const largeArc = endAngle - startAngle > Math.PI ? 1 : 0;
+
+    const path = `M ${x1o} ${y1o} A ${R} ${R} 0 ${largeArc} 1 ${x2o} ${y2o} L ${x1i} ${y1i} A ${r} ${r} 0 ${largeArc} 0 ${x2i} ${y2i} Z`;
+
+    // Label position
+    const labelR = (R + r) / 2;
+    const lx = cx + labelR * Math.cos(midAngle);
+    const ly = cy + labelR * Math.sin(midAngle);
+
+    // Number position (outer edge)
+    const numR = R - 16;
+    const nx = cx + numR * Math.cos(midAngle);
+    const ny = cy + numR * Math.sin(midAngle);
+
+    html += `<path class="segment" id="seg${i}" d="${path}" fill="${phases[i].color}" onclick="goTo(${i})" />`;
+    html += `<text class="segment-number" x="${nx}" y="${ny}">${i + 1}</text>`;
+
+    // Multi-line label
+    const lines = phases[i].name.split('\n');
+    html += `<text class="segment-label" x="${lx}" y="${ly - (lines.length - 1) * 7}">`;
+    lines.forEach((line, li) => {
+      html += `<tspan x="${lx}" dy="${li === 0 ? 0 : 15}">${line}</tspan>`;
+    });
+    html += `</text>`;
+  }
+
+  // Center
+  html += `<circle class="pulse-ring" cx="${cx}" cy="${cy}" r="62" fill="${phases[current].color}" opacity="0.15" />`;
+  html += `<circle class="center-circle" cx="${cx}" cy="${cy}" r="60" />`;
+  html += `<text class="center-icon" x="${cx}" y="${cy - 6}">SDLC</text>`;
+  html += `<text class="center-sub" x="${cx}" y="${cy + 14}">Ciclo de Vida</text>`;
+
+  svg.innerHTML = html;
+}
+
+// ── Build dots ──
+function buildDots() {
+  const container = document.getElementById('dots');
+  container.innerHTML = phases.map((p, i) =>
+    `<div class="phase-dot" style="background:${p.color}" onclick="goTo(${i})"></div>`
+  ).join('');
+}
+
+// ── Update view ──
+function updateView() {
+  const p = phases[current];
+  const card = document.getElementById('phaseCard');
+  card.style.setProperty('--card-color', p.color);
+
+  card.innerHTML = `
+    <div class="phase-number">Fase ${current + 1} de ${phases.length}</div>
+    <h2>${p.short}</h2>
+    <p class="desc">${p.desc}</p>
+    <div class="tech-tags">
+      ${p.techs.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+    </div>
+    <div class="deliverables">
+      <h4>Entregables clave</h4>
+      ${p.deliverables.map(d => `
+        <div class="deliverable-item">
+          <span class="check" style="color:${p.color}">\u2713</span>
+          <span>${d}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  // Update segments
+  document.querySelectorAll('.segment').forEach((seg, i) => {
+    seg.classList.toggle('active', i === current);
+  });
+
+  // Update dots
+  document.querySelectorAll('.phase-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === current);
+  });
+
+  // Update pulse color
+  const pulse = document.querySelector('.pulse-ring');
+  if (pulse) pulse.setAttribute('fill', p.color);
+}
+
+function goTo(i) {
+  current = i;
+  updateView();
+}
+function next() {
+  current = (current + 1) % phases.length;
+  updateView();
+}
+function prev() {
+  current = (current - 1 + phases.length) % phases.length;
+  updateView();
+}
+
+function toggleAuto() {
+  const btn = document.getElementById('autoBtn');
+  if (autoInterval) {
+    clearInterval(autoInterval);
+    autoInterval = null;
+    btn.classList.remove('active');
+    btn.innerHTML = '&#9654; Auto-rotar';
+  } else {
+    autoInterval = setInterval(next, 3500);
+    btn.classList.add('active');
+    btn.innerHTML = '&#9646;&#9646; Pausar';
+  }
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { next(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { prev(); e.preventDefault(); }
+  if (e.key === ' ') { toggleAuto(); e.preventDefault(); }
+});
+
+// Init
+buildWheel();
+buildDots();
+updateView();
+</script>
+</body>
+</html>

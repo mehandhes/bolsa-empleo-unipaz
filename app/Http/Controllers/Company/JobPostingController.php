@@ -12,6 +12,12 @@ class JobPostingController extends Controller
     public function index()
     {
         $company = Auth::user()->company;
+
+        if (!$company) {
+            return redirect()->route('company.dashboard')
+                ->with('error', 'No se encontró el perfil de empresa. Completa tu registro.');
+        }
+
         $jobPostings = JobPosting::where('company_id', $company->id)
             ->withCount('applications')
             ->latest()
@@ -67,7 +73,7 @@ class JobPostingController extends Controller
     public function show(JobPosting $jobPosting)
     {
         $company = Auth::user()->company;
-        if ($jobPosting->company_id !== $company->id) abort(403);
+        if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
 
         $jobPosting->loadCount('applications');
         $jobPosting->load(['applications' => function ($q) {
@@ -80,7 +86,7 @@ class JobPostingController extends Controller
     public function edit(JobPosting $jobPosting)
     {
         $company = Auth::user()->company;
-        if ($jobPosting->company_id !== $company->id) abort(403);
+        if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
 
         return view('company.jobs.edit', compact('jobPosting'));
     }
@@ -88,7 +94,7 @@ class JobPostingController extends Controller
     public function update(Request $request, JobPosting $jobPosting)
     {
         $company = Auth::user()->company;
-        if ($jobPosting->company_id !== $company->id) abort(403);
+        if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
 
         $request->validate([
             'title'             => 'required|string|max:200',
@@ -121,7 +127,7 @@ class JobPostingController extends Controller
     public function destroy(JobPosting $jobPosting)
     {
         $company = Auth::user()->company;
-        if ($jobPosting->company_id !== $company->id) abort(403);
+        if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
 
         $jobPosting->update(['status' => 'closed']);
 

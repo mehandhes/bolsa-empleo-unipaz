@@ -160,4 +160,9 @@ class DashboardController extends Controller
         ];
 
         $companiesByStatus = Company::selectRaw('status, COUNT(*) as total')->groupBy('status')->pluck('total', 'status');
-        $applicationsByStatus = Application::s
+        $applicationsByStatus = Application::selectRaw('status, COUNT(*) as total')->groupBy('status')->pluck('total', 'status');
+        $jobsByArea = JobPosting::selectRaw('area, COUNT(*) as total')->groupBy('area')->orderByDesc('total')->get();
+
+        return view('admin.reports', compact('stats', 'companiesByStatus', 'applicationsByStatus', 'jobsByArea'));
+    }
+}

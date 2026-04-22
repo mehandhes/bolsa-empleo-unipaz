@@ -545,9 +545,6 @@
         <div class="container-fluid px-3 px-md-4">
 
             <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="{{ route('home') }}">
-                <img src="{{ asset('images/LogoWhite_.png') }}"
-                    alt="UNIPAZ — Bolsa de Empleo"
-                    style="height: 60px; width: auto;">
                 <span class="brand-sub text-white ms-1">Emplea-UNIPAZ </span>
             </a>
 

@@ -154,4 +154,18 @@
                         <tr>
                             <td colspan="8" class="text-center text-muted py-4">
                                 <i class="bi bi-briefcase d-block fs-3 mb-2 opacity-25"></i>
-                                No se encontraron vacante
+                                No se encontraron vacantes.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        @if($vacancies->hasPages())
+            <div class="card-footer bg-transparent">
+                {{ $vacancies->links() }}
+            </div>
+        @endif
+    </div>
+</div>
+@endsection
