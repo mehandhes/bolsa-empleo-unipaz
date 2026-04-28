@@ -574,33 +574,11 @@
 
     <!-- ═══ Navbar principal ═══ -->
     <nav class="navbar navbar-expand-lg navbar-unipaz">
-        <div class="container-fluid px-3 px-md-4">
+        <div class="container-fluid px-4">
 
             <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="{{ route('home') }}">
                 <span class="brand-sub text-white ms-1">Emplea-UNIPAZ</span>
             </a>
-
-            {{-- Botones CTA siempre visibles (no colapsan) para visitantes --}}
-            @guest
-            <div class="d-flex align-items-center gap-1 ms-auto me-2 nav-guest-always">
-                <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }} px-2"
-                   href="{{ route('home') }}" title="Inicio">
-                    <i class="bi bi-house me-1 d-none d-sm-inline"></i>
-                    <span class="d-none d-sm-inline">Inicio</span>
-                    <i class="bi bi-house d-sm-none"></i>
-                </a>
-                <a class="nav-link btn-nav-student px-2 px-md-3" href="{{ route('auth.google') }}">
-                    <i class="bi bi-mortarboard-fill me-1"></i>
-                    <span class="d-none d-sm-inline">Soy Estudiante</span>
-                    <span class="d-sm-none" style="font-size:.75rem;">Estudiante</span>
-                </a>
-                <a class="nav-link btn-nav-company px-2 px-md-3" href="{{ route('login') }}">
-                    <i class="bi bi-building me-1"></i>
-                    <span class="d-none d-sm-inline">Soy Empresa</span>
-                    <span class="d-sm-none" style="font-size:.75rem;">Empresa</span>
-                </a>
-            </div>
-            @endguest
 
             {{-- Hamburger solo para usuarios autenticados --}}
             @auth
@@ -749,6 +727,27 @@
 
                 </ul>
             </div>
+        {{-- Botones CTA visitantes: siempre visibles, alineados a la derecha --}}
+        @guest
+        <div class="d-flex align-items-center gap-1 ms-auto nav-guest-always">
+            <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }} px-2"
+               href="{{ route('home') }}" title="Inicio">
+                <i class="bi bi-house me-1 d-none d-sm-inline"></i>
+                <span class="d-none d-sm-inline">Inicio</span>
+                <i class="bi bi-house d-sm-none"></i>
+            </a>
+            <a class="nav-link btn-nav-student px-2 px-md-3" href="{{ route('auth.google') }}">
+                <i class="bi bi-mortarboard-fill me-1"></i>
+                <span class="d-none d-sm-inline">Soy Estudiante</span>
+                <span class="d-sm-none" style="font-size:.75rem;">Estudiante</span>
+            </a>
+            <a class="nav-link btn-nav-company px-2 px-md-3" href="{{ route('login') }}">
+                <i class="bi bi-building me-1"></i>
+                <span class="d-none d-sm-inline">Soy Empresa</span>
+                <span class="d-sm-none" style="font-size:.75rem;">Empresa</span>
+            </a>
+        </div>
+        @endguest
         </div>
     </nav>
 
