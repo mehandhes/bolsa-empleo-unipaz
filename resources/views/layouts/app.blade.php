@@ -167,6 +167,25 @@
             color: #fff !important;
         }
 
+        /* Botones de visitante siempre visibles en el navbar */
+        .nav-guest-always {
+            flex-shrink: 0;
+        }
+
+        .nav-guest-always .nav-link {
+            white-space: nowrap;
+        }
+
+        @media (max-width: 400px) {
+            .nav-guest-always .nav-link {
+                padding: .3rem .5rem !important;
+                font-size: .72rem;
+            }
+            .brand-sub {
+                font-size: 1.05rem !important;
+            }
+        }
+
         .navbar-toggler {
             border: 1.5px solid rgba(255, 255, 255, .35);
             border-radius: 6px;
@@ -554,33 +573,40 @@
         <div class="container-fluid px-3 px-md-4">
 
             <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="{{ route('home') }}">
-                <span class="brand-sub text-white ms-1">Emplea-UNIPAZ </span>
+                <span class="brand-sub text-white ms-1">Emplea-UNIPAZ</span>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            {{-- Botones CTA siempre visibles (no colapsan) para visitantes --}}
+            @guest
+            <div class="d-flex align-items-center gap-1 ms-auto me-2 nav-guest-always">
+                <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }} px-2"
+                   href="{{ route('home') }}" title="Inicio">
+                    <i class="bi bi-house me-1 d-none d-sm-inline"></i>
+                    <span class="d-none d-sm-inline">Inicio</span>
+                    <i class="bi bi-house d-sm-none"></i>
+                </a>
+                <a class="nav-link btn-nav-student px-2 px-md-3" href="{{ route('auth.google') }}">
+                    <i class="bi bi-mortarboard-fill me-1"></i>
+                    <span class="d-none d-sm-inline">Soy Estudiante</span>
+                    <span class="d-sm-none" style="font-size:.75rem;">Estudiante</span>
+                </a>
+                <a class="nav-link btn-nav-company px-2 px-md-3" href="{{ route('login') }}">
+                    <i class="bi bi-building me-1"></i>
+                    <span class="d-none d-sm-inline">Soy Empresa</span>
+                    <span class="d-sm-none" style="font-size:.75rem;">Empresa</span>
+                </a>
+            </div>
+            @endguest
+
+            {{-- Hamburger solo para usuarios autenticados --}}
+            @auth
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <i class="bi bi-list text-white fs-5"></i>
             </button>
+            @endauth
 
             <div class="collapse navbar-collapse" id="navMenu">
                 <ul class="navbar-nav ms-auto align-items-lg-center gap-1 pt-2 pt-lg-0">
-
-                    @guest
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
-                            <i class="bi bi-house me-1"></i>Inicio
-                        </a>
-                    </li>
-                    <li class="nav-item ms-1">
-                        <a class="nav-link btn-nav-student" href="{{ route('auth.google') }}">
-                            <i class="bi bi-mortarboard-fill me-1"></i>Soy Estudiante
-                        </a>
-                    </li>
-                    <li class="nav-item ms-1">
-                        <a class="nav-link btn-nav-company" href="{{ route('login') }}">
-                            <i class="bi bi-building me-1"></i>Soy Empresa
-                        </a>
-                    </li>
-                    @endguest
 
                     @auth
                     @if(auth()->user()->isAdmin())
