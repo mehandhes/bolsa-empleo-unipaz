@@ -72,10 +72,14 @@
 
         /* ── Navbar principal ── */
         .navbar-unipaz {
-            background: rgba(16, 35, 95, 0.98);
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+            background: rgba(13, 27, 76, 0.99);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 20px rgba(13, 27, 76, .55);
+            box-shadow: 0 2px 24px rgba(13, 27, 76, .7);
+            border-bottom: 1px solid rgba(52, 211, 153, .12);
             padding-top: .65rem;
             padding-bottom: .65rem;
         }
