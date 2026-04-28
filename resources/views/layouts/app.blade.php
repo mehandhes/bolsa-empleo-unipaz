@@ -106,11 +106,12 @@
         }
 
         .navbar-unipaz .brand-sub {
-            font-size: 1.5rem;
-            font-weight: 400;
-            opacity: .7;
-            letter-spacing: .4px;
-            text-transform: uppercase;
+            font-size: 1.35rem;
+            font-weight: 900;
+            opacity: 1;
+            letter-spacing: -.5px;
+            text-transform: none;
+            color: #fff;
         }
 
         .navbar-unipaz .nav-link {
