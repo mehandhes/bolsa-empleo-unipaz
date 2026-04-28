@@ -20,15 +20,18 @@
            Manual de Identidad Institucional
         ============================================= */
         :root {
-            --unipaz-blue: #273475;
+            --unipaz-blue: #10235f;
             /* Azul corporativo UNIPAZ */
-            --unipaz-blue-dark: #1d2659;
-            --unipaz-blue-light: #3a4a9e;
+            --unipaz-blue-dark: #0d1b4c;
+            --unipaz-blue-light: #1a3a8f;
             --unipaz-green: #00963F;
             /* Verde corporativo UNIPAZ */
             --unipaz-green-dark: #007832;
             --unipaz-green-light: #e6f7ed;
-            --unipaz-blue-tint: #eef0f9;
+            --unipaz-emerald: #34d399;
+            /* Acento esmeralda — público/landing */
+            --unipaz-emerald-dark: #10b981;
+            --unipaz-blue-tint: rgba(16, 35, 95, .08);
             --unipaz-gray: #f4f5f7;
             --unipaz-text: #1a1f36;
             --unipaz-muted: #6b7280;
@@ -52,9 +55,9 @@
 
         /* ── Barra superior institucional ── */
         .topbar-institucional {
-            background: var(--unipaz-blue-dark);
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, .65);
+            background: #0a1640;
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, .5);
             border-bottom: 1px solid rgba(255, 255, 255, .06);
         }
 
@@ -69,10 +72,15 @@
 
         /* ── Navbar principal ── */
         .navbar-unipaz {
-            background: var(--unipaz-blue);
-            box-shadow: 0 2px 16px rgba(39, 52, 117, .25);
-            padding-top: .55rem;
-            padding-bottom: .55rem;
+            background: rgba(16, 35, 95, 0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .08), 0 4px 24px rgba(13, 27, 76, .45);
+            padding-top: .65rem;
+            padding-bottom: .65rem;
+            position: sticky;
+            top: 0;
+            z-index: 1050;
         }
 
         .navbar-unipaz .navbar-brand {
@@ -128,19 +136,20 @@
         }
 
         .btn-nav-student {
-            background: var(--unipaz-green);
-            color: #fff !important;
+            background: var(--unipaz-emerald);
+            color: #0d1b4c !important;
             border: none;
             border-radius: 20px;
-            padding: .35rem 1rem !important;
-            font-weight: 600;
+            padding: .35rem 1.1rem !important;
+            font-weight: 700;
             font-size: .82rem;
-            transition: background .18s;
+            transition: all .18s;
         }
 
         .btn-nav-student:hover {
-            background: var(--unipaz-green-dark) !important;
-            color: #fff !important;
+            background: var(--unipaz-emerald-dark) !important;
+            color: #0d1b4c !important;
+            transform: translateY(-1px);
         }
 
         .btn-nav-company {
@@ -169,7 +178,7 @@
         /* ── Sidebar ── */
         .sidebar {
             min-height: calc(100vh - 92px);
-            background: var(--unipaz-blue);
+            background: var(--unipaz-blue-dark);
             padding: 1rem .5rem;
         }
 
@@ -419,10 +428,11 @@
 
         /* ── Footer ── */
         .footer-unipaz {
-            background: var(--unipaz-blue-dark);
-            color: rgba(255, 255, 255, .6);
-            padding: 2rem 0 1.5rem;
-            margin-top: 3rem;
+            background: #0a1640;
+            color: rgba(255, 255, 255, .55);
+            padding: 2.5rem 0 1.5rem;
+            margin-top: 0;
+            border-top: 1px solid rgba(255, 255, 255, .08);
         }
 
         .footer-unipaz .footer-brand {
@@ -471,6 +481,7 @@
             flex: 1;
             min-width: 0;
             padding: 1.5rem;
+            background: var(--unipaz-gray);
         }
 
         @media (max-width: 767px) {
@@ -784,18 +795,4 @@
             </div>
 
             <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center text-center gap-2">
-                <span>&copy; {{ date('Y') }} Instituto Universitario de la Paz — UNIPAZ. Todos los derechos reservados.</span>
-                <span style="font-size:.75rem;">
-                    <i class="bi bi-shield-check me-1" style="color:var(--unipaz-green);"></i>
-                    Vigilada Ministerio de Educación
-                </span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    @stack('scripts')
-</body>
-
-</html>
+                <span>&copy; {{ date('Y') }} Instituto Universitario de la Paz — UNIPAZ.

@@ -19,21 +19,9 @@ class DashboardController extends Controller
         $totalVacantes    = JobPosting::where('status', 'active')->count();
         $totalPostulaciones = Application::count();
 
-        // Estadísticas para gráficos — compatible con SQLite, MySQL y PostgreSQL
-        $driver = config('database.default');
-        if ($driver === 'pgsql') {
-            $monthExpr  = "TO_CHAR(created_at, 'MM')";
-            $yearExpr   = "TO_CHAR(created_at, 'YYYY')";
-        } elseif ($driver === 'mysql') {
-            $monthExpr  = "DATE_FORMAT(created_at, '%m')";
-            $yearExpr   = "DATE_FORMAT(created_at, '%Y')";
-        } else {
-            $monthExpr  = "strftime('%m', created_at)";
-            $yearExpr   = "strftime('%Y', created_at)";
-        }
-
-        $monthlyApplications = Application::selectRaw("{$monthExpr} as month, COUNT(*) as total")
-            ->whereRaw("{$yearExpr} = ?", [(string) now()->year])
+        // Estadísticas para gráficos (últimos 6 meses) — compatible con SQLite y MySQL
+        $monthlyApplications = Application::selectRaw("strftime('%m', created_at) as month, COUNT(*) as total")
+            ->whereRaw("strftime('%Y', created_at) = ?", [now()->year])
             ->groupBy('month')
             ->orderBy('month')
             ->get();
@@ -171,4 +159,10 @@ class DashboardController extends Controller
             'applications_accepted' => Application::where('status', 'accepted')->count(),
         ];
 
-        $companiesByStatus = C
+        $companiesByStatus = Company::selectRaw('status, COUNT(*) as total')->groupBy('status')->pluck('total', 'status');
+        $applicationsByStatus = Application::selectRaw('status, COUNT(*) as total')->groupBy('status')->pluck('total', 'status');
+        $jobsByArea = JobPosting::selectRaw('area, COUNT(*) as total')->groupBy('area')->orderByDesc('total')->get();
+
+        return view('admin.reports', compact('stats', 'companiesByStatus', 'applicationsByStatus', 'jobsByArea'));
+    }
+}

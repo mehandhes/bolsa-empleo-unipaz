@@ -3,529 +3,641 @@
 
 @push('styles')
 <style>
-    /* ── Hero ── */
+    /* ═══════════════════════════════════════
+       LANDING PAGE — EMPLEA UNIPAZ
+       Tema oscuro premium con acento esmeralda
+    ═══════════════════════════════════════ */
+
+    /* Wrapper global de la landing */
+    .landing-wrapper {
+        background: #0d1b4c;
+        color: #fff;
+    }
+
+    /* ── HERO ── */
     .hero-section {
-        background: linear-gradient(135deg, #273475 0%, #1d2659 60%, #162050 100%);
+        background: linear-gradient(135deg, #0d1b4c 0%, #10235f 55%, #0e2060 100%);
         position: relative;
         overflow: hidden;
-        padding: 5rem 0 4rem;
+        padding: 5.5rem 0 5rem;
+        min-height: 600px;
     }
+
     .hero-section::before {
         content: '';
         position: absolute;
-        top: -60px; right: -80px;
-        width: 420px; height: 420px;
-        background: rgba(0,150,63,.12);
-        border-radius: 50%;
+        top: -120px;
+        right: -120px;
+        width: 560px;
+        height: 560px;
+        background: radial-gradient(circle, rgba(52, 211, 153, .09) 0%, transparent 68%);
+        pointer-events: none;
     }
+
     .hero-section::after {
         content: '';
         position: absolute;
-        bottom: -80px; left: -60px;
-        width: 300px; height: 300px;
-        background: rgba(255,255,255,.04);
-        border-radius: 50%;
+        bottom: -100px;
+        left: -80px;
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(circle, rgba(52, 211, 153, .06) 0%, transparent 70%);
+        pointer-events: none;
     }
-    .hero-section .container { position: relative; z-index: 1; }
+
+    .hero-section .container {
+        position: relative;
+        z-index: 1;
+    }
 
     .hero-badge {
         display: inline-flex;
         align-items: center;
-        gap: .5rem;
-        background: rgba(0,150,63,.25);
-        border: 1px solid rgba(0,150,63,.45);
-        color: #6ee7a8;
-        border-radius: 20px;
-        padding: .35rem 1rem;
-        font-size: .82rem;
+        gap: .55rem;
+        background: rgba(52, 211, 153, .12);
+        border: 1px solid rgba(52, 211, 153, .28);
+        color: #6ee7b7;
+        border-radius: 24px;
+        padding: .45rem 1.15rem;
+        font-size: .78rem;
         font-weight: 600;
-        letter-spacing: .3px;
+        letter-spacing: .5px;
+        margin-bottom: 1.4rem;
     }
+
     .hero-badge .dot {
-        width: 7px; height: 7px;
-        background: #00963F;
+        width: 7px;
+        height: 7px;
+        background: #34d399;
         border-radius: 50%;
-        animation: pulse-dot 1.8s infinite;
+        animation: pulse-dot 1.8s ease-in-out infinite;
+        flex-shrink: 0;
     }
+
     @keyframes pulse-dot {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50%       { opacity: .5; transform: scale(.85); }
+
+        0%,
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: .45;
+            transform: scale(.75);
+        }
     }
 
     .hero-title {
-        font-size: clamp(2rem, 4.5vw, 3.2rem);
-        font-weight: 800;
-        line-height: 1.15;
+        font-size: clamp(2.2rem, 5vw, 3.7rem);
+        font-weight: 900;
+        line-height: 1.1;
         color: #fff;
-        letter-spacing: -.5px;
+        letter-spacing: -.8px;
+        margin-bottom: 1.25rem;
     }
-    .hero-title .highlight { color: #4ade80; }
 
-    .hero-divider {
-        width: 48px; height: 4px;
-        background: #00963F;
-        border-radius: 2px;
-        margin: 1.2rem 0;
+    .hero-title .highlight {
+        color: #34d399;
     }
 
     .hero-lead {
         font-size: 1.05rem;
-        color: rgba(255,255,255,.72);
-        line-height: 1.65;
-        max-width: 540px;
+        color: rgba(255, 255, 255, .78);
+        line-height: 1.68;
+        max-width: 520px;
+        margin-bottom: 2rem;
     }
 
-    /* ── Stat chips en hero ── */
+    /* Stat chips */
     .stat-chip {
-        background: rgba(255,255,255,.08);
-        border: 1px solid rgba(255,255,255,.12);
-        border-radius: 12px;
-        padding: 1rem 1.5rem;
+        background: rgba(255, 255, 255, .08);
+        border: 1px solid rgba(255, 255, 255, .12);
+        border-radius: 14px;
+        padding: 1.1rem 1.5rem;
         text-align: center;
-        min-width: 120px;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(6px);
+        flex: 1;
+        min-width: 110px;
     }
+
     .stat-chip .stat-number {
-        font-size: 1.9rem;
-        font-weight: 800;
+        font-size: 1.85rem;
+        font-weight: 900;
         color: #fff;
         line-height: 1;
     }
-    .stat-chip .stat-number span { color: #4ade80; }
-    .stat-chip .stat-label {
-        font-size: .75rem;
-        color: rgba(255,255,255,.6);
-        margin-top: .25rem;
-        text-transform: uppercase;
-        letter-spacing: .5px;
+
+    .stat-chip .stat-number span {
+        color: #34d399;
     }
 
-    /* ── Botones hero ── */
+    .stat-chip .stat-label {
+        font-size: .7rem;
+        color: rgba(255, 255, 255, .52);
+        margin-top: .3rem;
+        text-transform: uppercase;
+        letter-spacing: .6px;
+    }
+
+    /* Botones hero */
     .btn-hero-primary {
-        background: #00963F;
-        color: #fff;
+        background: #34d399;
+        color: #0d1b4c;
         border: none;
-        border-radius: 10px;
-        padding: .8rem 1.8rem;
+        border-radius: 14px;
+        padding: .9rem 2rem;
         font-weight: 700;
-        font-size: 1rem;
-        transition: all .2s ease;
+        font-size: .95rem;
+        transition: all .22s ease;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: .5rem;
     }
+
     .btn-hero-primary:hover {
-        background: #007832;
-        color: #fff;
+        background: #10b981;
+        color: #0d1b4c;
         transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0,150,63,.35);
+        box-shadow: 0 12px 32px rgba(52, 211, 153, .35);
     }
+
     .btn-hero-secondary {
         background: transparent;
-        color: rgba(255,255,255,.9);
-        border: 1.5px solid rgba(255,255,255,.35);
-        border-radius: 10px;
-        padding: .8rem 1.8rem;
+        color: rgba(255, 255, 255, .88);
+        border: 1.5px solid rgba(255, 255, 255, .22);
+        border-radius: 14px;
+        padding: .9rem 2rem;
         font-weight: 600;
-        font-size: 1rem;
-        transition: all .2s ease;
+        font-size: .95rem;
+        transition: all .22s ease;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: .5rem;
     }
+
     .btn-hero-secondary:hover {
-        background: rgba(255,255,255,.1);
-        border-color: rgba(255,255,255,.65);
+        background: rgba(255, 255, 255, .09);
+        border-color: rgba(255, 255, 255, .5);
         color: #fff;
     }
 
-    /* ── Wave separator ── */
-    .wave-sep {
-        line-height: 0;
-        background: #273475;
+    /* Tarjeta de búsqueda (panel derecho hero) */
+    .search-card {
+        background: rgba(255, 255, 255, .07);
+        border: 1px solid rgba(255, 255, 255, .12);
+        border-radius: 24px;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 2.25rem 2rem;
     }
-    .wave-sep svg { display: block; }
 
-    /* ── Sección de vacantes ── */
-    .section-jobs { padding: 3.5rem 0; }
-    .section-header { margin-bottom: 2rem; }
-    .section-header .section-tag {
-        font-size: .75rem;
+    .search-card h3 {
+        color: #fff;
         font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: #00963F;
-        margin-bottom: .5rem;
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
     }
-    .section-header h2 {
-        font-size: 1.75rem;
+
+    .search-card .form-control,
+    .search-card .form-select {
+        background: rgba(255, 255, 255, .1) !important;
+        border: 1px solid rgba(255, 255, 255, .15) !important;
+        color: #fff !important;
+        border-radius: 12px !important;
+        padding: .85rem 1rem !important;
+        font-size: .88rem !important;
+        transition: border .15s, box-shadow .15s !important;
+    }
+
+    .search-card .form-control::placeholder {
+        color: rgba(255, 255, 255, .45) !important;
+    }
+
+    .search-card .form-select option {
+        background: #10235f;
+        color: #fff;
+    }
+
+    .search-card .form-control:focus,
+    .search-card .form-select:focus {
+        border-color: rgba(52, 211, 153, .55) !important;
+        box-shadow: 0 0 0 3px rgba(52, 211, 153, .14) !important;
+        background: rgba(255, 255, 255, .13) !important;
+        color: #fff !important;
+        outline: none;
+    }
+
+    .btn-search {
+        background: #34d399;
+        color: #0d1b4c;
+        border: none;
+        border-radius: 12px;
+        padding: .9rem 1.5rem;
+        font-weight: 700;
+        font-size: .92rem;
+        width: 100%;
+        transition: all .2s;
+        cursor: pointer;
+    }
+
+    .btn-search:hover {
+        background: #10b981;
+        color: #0d1b4c;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px rgba(52, 211, 153, .3);
+    }
+
+    .search-divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, .1);
+        margin: 1.25rem 0 1rem;
+    }
+
+    /* ── SECCIONES ── */
+    .section-dark {
+        background: rgba(255, 255, 255, .025);
+        padding: 4.5rem 0;
+    }
+
+    .section-darker {
+        background: rgba(0, 0, 0, .12);
+        padding: 4.5rem 0;
+    }
+
+    .section-tag {
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: #34d399;
+        margin-bottom: .5rem;
+        display: block;
+    }
+
+    .section-title-dark {
+        font-size: 2rem;
         font-weight: 800;
-        color: #1a1f36;
+        color: #fff;
         line-height: 1.2;
     }
 
-    /* ── Job cards ── */
-    .job-card {
-        border: 1px solid #eef0f9 !important;
-        border-radius: 14px;
-        background: #fff;
-        transition: all .22s ease;
-        cursor: default;
-        overflow: hidden;
-    }
-    .job-card:hover {
-        border-color: #273475 !important;
-        transform: translateY(-3px);
-        box-shadow: 0 12px 32px rgba(39,52,117,.12) !important;
-    }
-    .job-card .card-body { padding: 1.25rem; }
-    .job-card .company-logo {
-        width: 46px; height: 46px;
-        border-radius: 10px;
-        object-fit: cover;
-        border: 1.5px solid #eef0f9;
-        background: #f4f5f7;
-        flex-shrink: 0;
-    }
-    .job-card .job-title {
-        font-size: .93rem;
-        font-weight: 700;
-        color: #1a1f36;
-        line-height: 1.3;
-        margin-bottom: .15rem;
-    }
-    .job-card .company-name {
-        font-size: .78rem;
-        color: #6b7280;
-        font-weight: 400;
-    }
-    .job-card .badge-modality {
-        font-size: .72rem;
-        font-weight: 600;
-        padding: .3rem .65rem;
-        border-radius: 6px;
-    }
-    .job-card .badge-location {
-        font-size: .72rem;
-        background: #f4f5f7;
-        color: #4b5563;
-        padding: .3rem .65rem;
-        border-radius: 6px;
-        font-weight: 500;
-    }
-    .job-card .badge-days {
-        font-size: .72rem;
-        background: #fef3c7;
-        color: #92400e;
-        padding: .3rem .65rem;
-        border-radius: 6px;
-        font-weight: 600;
-    }
-    .job-card .job-desc {
-        font-size: .8rem;
-        color: #6b7280;
-        line-height: 1.55;
-        margin-top: .75rem;
-        margin-bottom: 0;
-    }
-    .job-card .salary-label {
-        font-size: .82rem;
-        font-weight: 700;
-        color: #00963F;
-    }
-
-    /* ── Card de acceso bloqueado ── */
-    .login-prompt-card {
-        border: 2px dashed #c7d2fe !important;
-        background: #f8f9ff;
-        border-radius: 14px;
-        text-align: center;
-        padding: 2.5rem 1.5rem;
-    }
-
-    /* ── CTA empresa ── */
-    .cta-empresa {
-        background: linear-gradient(135deg, #273475 0%, #00963F 100%);
-        border-radius: 16px;
-        padding: 3rem 2.5rem;
-        color: #fff;
-        position: relative;
-        overflow: hidden;
-    }
-    .cta-empresa::before {
-        content: '';
-        position: absolute;
-        top: -40px; right: -40px;
-        width: 200px; height: 200px;
-        background: rgba(255,255,255,.06);
-        border-radius: 50%;
-    }
-    .cta-empresa::after {
-        content: '';
-        position: absolute;
-        bottom: -50px; left: 30px;
-        width: 140px; height: 140px;
-        background: rgba(255,255,255,.04);
-        border-radius: 50%;
-    }
-    .cta-empresa > * { position: relative; z-index: 1; }
-
-    /* ── How it works ── */
+    /* ── CÓMO FUNCIONA ── */
     .how-step {
         text-align: center;
-        padding: 1.5rem 1rem;
+        padding: 1.75rem 1.25rem;
+        background: rgba(255, 255, 255, .06);
+        border: 1px solid rgba(255, 255, 255, .09);
+        border-radius: 18px;
+        transition: all .22s ease;
+        height: 100%;
     }
+
+    .how-step:hover {
+        background: rgba(255, 255, 255, .1);
+        border-color: rgba(52, 211, 153, .22);
+        transform: translateY(-3px);
+    }
+
     .how-step .step-icon {
-        width: 64px; height: 64px;
+        width: 60px;
+        height: 60px;
         border-radius: 16px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         margin-bottom: 1rem;
     }
+
     .how-step .step-number {
-        font-size: .7rem;
+        font-size: .68rem;
         font-weight: 700;
-        letter-spacing: 1px;
+        letter-spacing: 1.3px;
         text-transform: uppercase;
-        color: #00963F;
-        margin-bottom: .3rem;
+        color: #34d399;
+        margin-bottom: .4rem;
     }
-    .how-step h5 { font-size: .95rem; font-weight: 700; color: #1a1f36; }
-    .how-step p { font-size: .82rem; color: #6b7280; }
+
+    .how-step h5 {
+        font-size: .93rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: .5rem;
+    }
+
+    .how-step p {
+        font-size: .81rem;
+        color: rgba(255, 255, 255, .58);
+        line-height: 1.62;
+        margin: 0;
+    }
+
+    /* ── TARJETAS DE VACANTES (dark) ── */
+    .job-card-dark {
+        background: rgba(255, 255, 255, .07);
+        border: 1px solid rgba(255, 255, 255, .1);
+        border-radius: 18px;
+        transition: all .22s ease;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .job-card-dark:hover {
+        background: rgba(255, 255, 255, .11);
+        border-color: rgba(52, 211, 153, .28);
+        transform: translateY(-3px);
+        box-shadow: 0 18px 44px rgba(0, 0, 0, .32);
+    }
+
+    .job-card-dark .card-body {
+        padding: 1.35rem;
+        flex: 1;
+    }
+
+    .job-card-dark .company-logo {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        object-fit: cover;
+        border: 1.5px solid rgba(255, 255, 255, .12);
+        background: rgba(255, 255, 255, .08);
+        flex-shrink: 0;
+    }
+
+    .job-card-dark .job-title {
+        font-size: .93rem;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.3;
+        margin-bottom: .2rem;
+    }
+
+    .job-card-dark .company-name {
+        font-size: .77rem;
+        color: rgba(255, 255, 255, .55);
+    }
+
+    .job-card-dark .badge-location {
+        font-size: .71rem;
+        background: rgba(255, 255, 255, .1);
+        color: rgba(255, 255, 255, .72);
+        padding: .28rem .68rem;
+        border-radius: 6px;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    .job-card-dark .badge-modality {
+        font-size: .71rem;
+        font-weight: 600;
+        padding: .28rem .68rem;
+        border-radius: 6px;
+        white-space: nowrap;
+    }
+
+    .job-card-dark .badge-days {
+        font-size: .71rem;
+        background: rgba(234, 179, 8, .14);
+        color: #fde68a;
+        padding: .28rem .68rem;
+        border-radius: 6px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .job-card-dark .job-desc {
+        font-size: .8rem;
+        color: rgba(255, 255, 255, .58);
+        line-height: 1.55;
+        margin-top: .75rem;
+        margin-bottom: 0;
+    }
+
+    .job-card-dark .salary-label {
+        font-size: .83rem;
+        font-weight: 700;
+        color: #34d399;
+    }
+
+    .job-card-dark .card-footer-dark {
+        padding: .9rem 1.35rem;
+        border-top: 1px solid rgba(255, 255, 255, .07);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-card-detail {
+        background: rgba(52, 211, 153, .13);
+        color: #34d399;
+        border: 1px solid rgba(52, 211, 153, .22);
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: .77rem;
+        padding: .38rem .9rem;
+        text-decoration: none;
+        transition: all .18s;
+    }
+
+    .btn-card-detail:hover {
+        background: rgba(52, 211, 153, .25);
+        color: #34d399;
+        border-color: rgba(52, 211, 153, .45);
+    }
+
+    /* Login prompt card */
+    .login-prompt-card {
+        background: rgba(255, 255, 255, .05);
+        border: 1.5px dashed rgba(255, 255, 255, .14);
+        border-radius: 18px;
+        text-align: center;
+        padding: 2.75rem 1.5rem;
+    }
+
+    /* ── CTA EMPRESA ── */
+    .cta-empresa {
+        background: linear-gradient(135deg, #10235f 0%, #0e3855 100%);
+        border: 1px solid rgba(52, 211, 153, .18);
+        border-radius: 20px;
+        padding: 3rem 2.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-empresa::before {
+        content: '';
+        position: absolute;
+        top: -70px;
+        right: -70px;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(circle, rgba(52, 211, 153, .1) 0%, transparent 68%);
+        pointer-events: none;
+    }
+
+    .cta-empresa>* {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Ver todas btn */
+    .btn-ver-todas {
+        background: rgba(255, 255, 255, .08);
+        color: rgba(255, 255, 255, .8);
+        border: 1px solid rgba(255, 255, 255, .12);
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: .82rem;
+        padding: .5rem 1rem;
+        text-decoration: none;
+        transition: all .18s;
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+    }
+
+    .btn-ver-todas:hover {
+        background: rgba(255, 255, 255, .13);
+        color: #fff;
+        border-color: rgba(255, 255, 255, .25);
+    }
 </style>
 @endpush
 
 @section('content')
 
-{{-- ═══════════════════════════════════════════ --}}
-{{-- HERO                                        --}}
-{{-- ═══════════════════════════════════════════ --}}
-<section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center g-4">
-            <div class="col-lg-7">
-                <img src="{{ asset('images/LogoWhite_.png') }}"
-                     alt="UNIPAZ"
-                     style="height: 150px; width: auto; margin-bottom: 1.5rem; display: block;">
-                <div class="hero-badge mb-3">
-                    <span class="dot"></span>
-                    Plataforma oficial · UNIPAZ Barrancabermeja
-                </div>
-                <h1 class="hero-title">
-                    Conectamos el talento<br>
-                    universitario con las<br>
-                    <span class="highlight">mejores oportunidades</span>
-                </h1>
-                <div class="hero-divider"></div>
-                <p class="hero-lead mb-4">
-                    La bolsa de empleo institucional del Instituto Universitario de la Paz. Postúlate a vacantes reales con empresas de la región del Magdalena Medio.
-                </p>
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="{{ route('auth.google') }}" class="btn-hero-primary">
-                        <i class="bi bi-mortarboard-fill"></i>
-                        Ingresar como estudiante
-                    </a>
-                    <a href="{{ route('login') }}" class="btn-hero-secondary">
-                        <i class="bi bi-building"></i>
-                        Soy empresa
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="d-flex flex-wrap justify-content-center justify-content-lg-end gap-3 mt-4 mt-lg-0">
-                    <div class="stat-chip">
-                        <div class="stat-number">{{ $totalJobs }}<span>+</span></div>
-                        <div class="stat-label">Vacantes activas</div>
-                    </div>
-                    <div class="stat-chip">
-                        <div class="stat-number">{{ $totalCompanies }}</div>
-                        <div class="stat-label">Empresas aliadas</div>
-                    </div>
-                    <div class="stat-chip">
-                        <div class="stat-number">3<span>K+</span></div>
-                        <div class="stat-label">Estudiantes activos</div>
-                    </div>
-                    <div class="stat-chip" style="width:100%; max-width:280px;">
-                        <div class="d-flex align-items-center gap-2 justify-content-center">
-                            <i class="bi bi-shield-check" style="color:#4ade80; font-size:1.1rem;"></i>
-                            <span style="color:rgba(255,255,255,.8); font-size:.82rem; font-weight:500;">
-                                Plataforma institucional verificada
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="landing-wrapper">
 
-{{-- Wave --}}
-<div class="wave-sep">
-    <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,32 C360,0 1080,64 1440,32 L1440,48 L0,48 Z" fill="#f4f5f7"/>
-    </svg>
-</div>
+    {{-- ═══════════════════════════════════════════════════════ --}}
+    {{-- HERO                                                    --}}
+    {{-- ═══════════════════════════════════════════════════════ --}}
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
 
-{{-- ═══════════════════════════════════════════ --}}
-{{-- CÓMO FUNCIONA                               --}}
-{{-- ═══════════════════════════════════════════ --}}
-<section style="background:#fff; padding: 3rem 0;">
-    <div class="container">
-        <div class="section-header text-center">
-            <div class="section-tag">¿Cómo funciona?</div>
-            <h2>Simple, rápido y gratuito</h2>
-        </div>
-        <div class="row g-3 justify-content-center">
-            <div class="col-sm-6 col-lg-3">
-                <div class="how-step">
-                    <div class="step-icon" style="background:#eef0f9;">
-                        <i class="bi bi-google" style="color:#273475;"></i>
+                {{-- Columna izquierda: texto --}}
+                <div class="col-lg-6">
+                    <div class="hero-badge">
+                        <span class="dot"></span>
+                        Bolsa de empleo oficial · UNIPAZ Barrancabermeja
                     </div>
-                    <div class="step-number">Paso 01</div>
-                    <h5>Ingresa con tu correo</h5>
-                    <p>Usa tu cuenta institucional <strong>@unipaz.edu.co</strong> para acceder de forma segura.</p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="how-step">
-                    <div class="step-icon" style="background:#e6f7ed;">
-                        <i class="bi bi-person-badge" style="color:#00963F;"></i>
-                    </div>
-                    <div class="step-number">Paso 02</div>
-                    <h5>Completa tu perfil</h5>
-                    <p>Agrega tu programa académico, semestre, CV y habilidades para destacar.</p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="how-step">
-                    <div class="step-icon" style="background:#eef0f9;">
-                        <i class="bi bi-search" style="color:#273475;"></i>
-                    </div>
-                    <div class="step-number">Paso 03</div>
-                    <h5>Explora vacantes</h5>
-                    <p>Filtra por área, modalidad y ubicación para encontrar tu oportunidad ideal.</p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="how-step">
-                    <div class="step-icon" style="background:#e6f7ed;">
-                        <i class="bi bi-send-check" style="color:#00963F;"></i>
-                    </div>
-                    <div class="step-number">Paso 04</div>
-                    <h5>Postúlate</h5>
-                    <p>Envía tu postulación con un clic y haz seguimiento del proceso en tiempo real.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-{{-- ═══════════════════════════════════════════ --}}
-{{-- VACANTES RECIENTES                          --}}
-{{-- ═══════════════════════════════════════════ --}}
-<section class="section-jobs">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-end section-header mb-0">
-            <div>
-                <div class="section-tag">Oportunidades laborales</div>
-                <h2>Vacantes recientes</h2>
-            </div>
-            <a href="{{ route('auth.google') }}" class="btn btn-sm d-flex align-items-center gap-1"
-               style="background:#eef0f9; color:#273475; border-radius:8px; font-weight:600; font-size:.82rem;">
-                Ver todas <i class="bi bi-arrow-right"></i>
-            </a>
-        </div>
+                    <h1 class="hero-title">
+                        Conectamos talento<br>
+                        universitario con<br>
+                        <span class="highlight">oportunidades reales.</span>
+                    </h1>
 
-        <div class="row g-3 mt-1">
-            @forelse($latestJobs as $job)
-                <div class="col-md-6 col-lg-4">
-                    <div class="card job-card h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-start gap-3 mb-3">
-                                <img src="{{ $job->company->logo_url }}"
-                                     class="company-logo"
-                                     alt="{{ $job->company->company_name }}">
-                                <div class="flex-grow-1 min-width-0">
-                                    <div class="job-title">{{ $job->title }}</div>
-                                    <div class="company-name">{{ $job->company->company_name }}</div>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-wrap gap-1 mb-2">
-                                <span class="badge-location">
-                                    <i class="bi bi-geo-alt me-1"></i>{{ $job->location }}
-                                </span>
-                                <span class="badge-modality {{ $job->modality_badge }} text-white">
-                                    {{ ucfirst($job->modality) }}
-                                </span>
-                                <span class="badge-days">
-                                    <i class="bi bi-clock me-1"></i>{{ $job->remaining_days }}d restantes
-                                </span>
-                            </div>
-
-                            <p class="job-desc">{{ Str::limit($job->description, 95) }}</p>
-                        </div>
-                        <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pt-0 px-3 pb-3">
-                            <span class="salary-label">
-                                <i class="bi bi-currency-dollar"></i>{{ $job->salary_label }}
-                            </span>
-                            <a href="{{ route('auth.google') }}"
-                               class="btn btn-sm"
-                               style="background:#eef0f9; color:#273475; border-radius:7px; font-weight:600; font-size:.78rem;">
-                                Ver detalles
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="col-12">
-                    <div class="text-center py-5" style="color:#9ca3af;">
-                        <i class="bi bi-briefcase fs-1 d-block mb-2 opacity-25"></i>
-                        <p class="mb-0">No hay vacantes disponibles en este momento.</p>
-                    </div>
-                </div>
-            @endforelse
-        </div>
-
-        {{-- Prompt de acceso --}}
-        <div class="login-prompt-card mt-4">
-            <i class="bi bi-lock-fill fs-2 mb-2" style="color:#a5b4fc;"></i>
-            <h6 class="fw-bold" style="color:#273475;">¿Quieres ver todas las vacantes?</h6>
-            <p class="text-muted small mb-3">Ingresa con tu correo institucional UNIPAZ para acceder al catálogo completo de oportunidades.</p>
-            <a href="{{ route('auth.google') }}" class="btn-hero-primary" style="font-size:.9rem; padding:.6rem 1.4rem;">
-                <i class="bi bi-google"></i> Ingresar con correo UNIPAZ
-            </a>
-        </div>
-
-        {{-- ─── CTA Empresa ─── --}}
-        <div class="cta-empresa mt-5">
-            <div class="row align-items-center g-3">
-                <div class="col-md-8">
-                    <div style="font-size:.75rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:.4rem;">
-                        Para empresas y microempresas
-                    </div>
-                    <h3 class="fw-bold mb-2" style="font-size:1.55rem;">¿Buscas talento universitario?</h3>
-                    <p style="color:rgba(255,255,255,.75); font-size:.9rem; margin-bottom:0;">
-                        Publica tus vacantes <strong>de forma gratuita</strong> y conecta con los mejores estudiantes y egresados del Magdalena Medio.
+                    <p class="hero-lead">
+                        Plataforma institucional para estudiantes, egresados y empresas del Districto de Barrancabermej y el Magdalena Medio.
                     </p>
-                </div>
-                <div class="col-md-4 text-md-end">
-                    <a href="{{ route('company.register') }}"
-                       class="btn btn-light btn-lg px-4 fw-bold"
-                       style="border-radius:10px; color:#273475;">
-                        <i class="bi bi-building-add me-2"></i>Registrar mi empresa
-                    </a>
-                    <div class="mt-2" style="font-size:.75rem; color:rgba(255,255,255,.55);">
-                        <i class="bi bi-check-circle me-1"></i>Sin costo · Aprobación en 24h
+
+                    <div class="d-flex flex-wrap gap-3 mb-4">
+                        <a href="{{ route('auth.google') }}" class="btn-hero-primary">
+                            <i class="bi bi-mortarboard-fill"></i>
+                            Buscar vacantes
+                        </a>
+                        <a href="{{ route('company.register') }}" class="btn-hero-secondary">
+                            <i class="bi bi-building"></i>
+                            Registrar empresa
+                        </a>
+                    </div>
+
+                    <div class="d-flex gap-3 flex-wrap">
+                        <div class="stat-chip">
+                            <div class="stat-number">3<span>K+</span></div>
+                            <div class="stat-label">Estudiantes</div>
+                        </div>
+                        <div class="stat-chip">
+                            <div class="stat-number">{{ $totalJobs }}<span>+</span></div>
+                            <div class="stat-label">Vacantes activas</div>
+                        </div>
+                        <div class="stat-chip">
+                            <div class="stat-number">{{ $totalCompanies }}</div>
+                            <div class="stat-label">Empresas aliadas</div>
+                        </div>
                     </div>
                 </div>
+
+                {{-- Columna derecha: buscador --}}
+                <div class="col-lg-6">
+                    <div class="search-card">
+                        <h3>Buscar oportunidades</h3>
+                        <form action="{{ route('auth.google') }}" method="GET">
+                            <div class="d-flex flex-column gap-3">
+                                <input type="text"
+                                    class="form-control"
+                                    name="q"
+                                    placeholder="Cargo o palabra clave…">
+                                <input type="text"
+                                    class="form-control"
+                                    name="location"
+                                    placeholder="Ciudad o región">
+                                <select class="form-select" name="area">
+                                    <option value="">Área de interés</option>
+                                    <option value="ingenieria">Ingeniería y tecnología</option>
+                                    <option value="administracion">Administración y negocios</option>
+                                    <option value="salud">Salud y ciencias de la vida</option>
+                                    <option value="derecho">Derecho y ciencias sociales</option>
+                                    <option value="educacion">Educación</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                                <button type="submit" class="btn-search">
+                                    <i class="bi bi-search me-2"></i>Buscar ahora
+                                </button>
+                            </div>
+                        </form>
+                        <hr class="search-divider">
+                        <div class="d-flex align-items-center gap-2"
+                            style="font-size:.79rem; color:rgba(255,255,255,.48);">
+                            <i class="bi bi-shield-check" style="color:#34d399; font-size:.9rem;"></i>
+                            Plataforma institucional verificada · UNIPAZ
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-@endsection
+    {{-- ═══════════════════════════════════════════════════════ --}}
+    {{-- CÓMO FUNCIONA                                          --}}
+    {{-- ═══════════════════════════════════════════════════════ --}}
+    <section class="section-darker">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-tag">¿Cómo funciona?</span>
+                <h2 class="section-title-dark">Simple, rápido y gratuito</h2>
+            </div>
+            <div class="row g-3">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="how-step">
+                        <div class="step-icon" style="background:rgba(16,35,95,.9);">
+                            <i class="bi bi-google" style="color:#34d399;"></i>
+                        </div>
+                        <div class="step-number">Paso 01</div>
+                        <h5>Ingresa con tu correo</h5>
+                        <p>Usa tu cuenta institucional <strong style="color:rgba(255,255,255,.85);">@unipaz.edu.co</strong> para acceder de forma segura.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="how-step">
+                        <div class="step-icon" style="background:rgba(52,211,153,.1);">
+                            <i class="bi bi-person-badge" style="color:#34d399;"></i>
+                        </div>
+                        <div class="step-number">Paso 02</div>
+                        <h5>Completa tu perfil</h5>
+                        <p>Agrega tu programa académico, semestre, CV y habilidades para destacar ante las empresas.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="how-step">
+                        <div class="step-icon" style="background:rgba(16,35,95,.9);">
+                            <i class="bi bi-search" style="color:#34d399;"></i>
+                        </div>
+                        <div class="step-number">Paso 03</div>
+                        <h5>Explora vacantes</h5>
