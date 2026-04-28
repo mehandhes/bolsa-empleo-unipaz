@@ -641,3 +641,123 @@
                         </div>
                         <div class="step-number">Paso 03</div>
                         <h5>Explora vacantes</h5>
+                        <p>Filtra por área, modalidad y ubicación para encontrar tu oportunidad ideal en la región.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="how-step">
+                        <div class="step-icon" style="background:rgba(52,211,153,.1);">
+                            <i class="bi bi-send-check" style="color:#34d399;"></i>
+                        </div>
+                        <div class="step-number">Paso 04</div>
+                        <h5>Postúlate</h5>
+                        <p>Envía tu postulación con un clic y haz seguimiento del proceso en tiempo real.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- VACANTES RECIENTES --}}
+    <section class="section-dark">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <div>
+                    <span class="section-tag">Oportunidades laborales</span>
+                    <h2 class="section-title-dark">Vacantes recientes</h2>
+                </div>
+                <a href="{{ route('auth.google') }}" class="btn-ver-todas d-none d-sm-inline-flex">
+                    Ver todas <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            <div class="row g-3">
+                @forelse($latestJobs as $job)
+                <div class="col-md-6 col-lg-4">
+                    <div class="job-card-dark h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3 mb-3">
+                                <div class="company-logo">
+                                    {{ strtoupper(substr($job->company->company_name ?? 'E', 0, 1)) }}
+                                </div>
+                                <div class="flex-grow-1 min-width-0">
+                                    <div class="job-title">{{ $job->title }}</div>
+                                    <div class="company-name">{{ $job->company->company_name ?? 'Empresa' }}</div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <span class="badge-location">
+                                    <i class="bi bi-geo-alt"></i>{{ $job->location }}
+                                </span>
+                                <span class="badge-modality">
+                                    <i class="bi bi-laptop"></i>{{ $job->modality ?? 'Presencial' }}
+                                </span>
+                                @if($job->created_at->diffInDays() < 7)
+                                <span class="badge-days">
+                                    <i class="bi bi-clock"></i>Hace {{ $job->created_at->diffForHumans(null, true) }}
+                                </span>
+                                @endif
+                            </div>
+                            @if($job->description)
+                            <p class="job-desc">{{ Str::limit(strip_tags($job->description), 100) }}</p>
+                            @endif
+                        </div>
+                        <div class="card-footer-dark">
+                            @if($job->salary_min)
+                            <span class="salary-label">
+                                <i class="bi bi-currency-dollar"></i>
+                                ${{ number_format($job->salary_min / 1000) }}k
+                                @if($job->salary_max) - ${{ number_format($job->salary_max / 1000) }}k @endif
+                            </span>
+                            @else
+                            <span class="salary-label"><i class="bi bi-chat-square-text"></i> A convenir</span>
+                            @endif
+                            <a href="{{ route('auth.google') }}" class="btn-apply">
+                                Aplicar <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <div class="col-12 text-center py-5">
+                    <i class="bi bi-briefcase opacity-25 d-block mb-2" style="font-size:3rem; color:#34d399;"></i>
+                    <p style="color:rgba(255,255,255,.5);">Pronto habrá vacantes disponibles.</p>
+                </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
+    {{-- CTA EMPRESA --}}
+    <section class="section-darker">
+        <div class="container">
+            <div class="cta-empresa">
+                <div class="row align-items-center g-4">
+                    <div class="col-md-8">
+                        <span class="section-tag mb-1">Para empresas y microempresas</span>
+                        <h3 class="fw-bold mb-2" style="font-size:1.5rem; color:#fff;">
+                            ¿Buscas talento universitario?
+                        </h3>
+                        <p style="color:rgba(255,255,255,.68); font-size:.9rem; margin-bottom:0;">
+                            Publica tus vacantes <strong style="color:#fff;">de forma gratuita</strong> y conecta
+                            con los mejores estudiantes y egresados del Magdalena Medio.
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <a href="{{ route('company.register') }}" class="btn-hero-primary"
+                            style="font-size:.88rem; padding:.75rem 1.5rem; display:inline-flex;">
+                            <i class="bi bi-building-add"></i>Registrar mi empresa
+                        </a>
+                        <div class="mt-2" style="font-size:.72rem; color:rgba(255,255,255,.42);">
+                            <i class="bi bi-check-circle me-1" style="color:#34d399;"></i>Sin costo
+                            <span class="mx-1 opacity-50">·</span>
+                            <i class="bi bi-clock me-1" style="color:#34d399;"></i>Aprobación en 24h
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>{{-- /landing-wrapper --}}
+
+@endsection
