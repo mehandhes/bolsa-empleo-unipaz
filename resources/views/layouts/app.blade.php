@@ -72,15 +72,12 @@
 
         /* ── Navbar principal ── */
         .navbar-unipaz {
-            background: rgba(16, 35, 95, 0.97);
+            background: rgba(16, 35, 95, 0.98);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 1px 0 rgba(255, 255, 255, .08), 0 4px 24px rgba(13, 27, 76, .45);
+            box-shadow: 0 2px 20px rgba(13, 27, 76, .55);
             padding-top: .65rem;
             padding-bottom: .65rem;
-            position: sticky;
-            top: 0;
-            z-index: 1050;
         }
 
         .navbar-unipaz .navbar-brand {
@@ -795,4 +792,18 @@
             </div>
 
             <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center text-center gap-2">
-                <span>&copy; {{ date('Y') }} Instituto Universitario de la Paz — UNIPAZ.
+                <span>&copy; {{ date('Y') }} Instituto Universitario de la Paz — UNIPAZ. Todos los derechos reservados.</span>
+                <span style="font-size:.75rem;">
+                    <i class="bi bi-shield-check me-1" style="color:var(--unipaz-green);"></i>
+                    Vigilada Ministerio de Educación
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    @stack('scripts')
+</body>
+
+</html>
